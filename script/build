@@ -3,9 +3,28 @@
 set -e
 
 PROJECT_ROOT="$(cd "$(dirname "$0")"; cd ..; pwd)"
+echo "PROJECT ROOT ${PROJECT_ROOT}" 
+
+echo "Getting resource files..."
+FILE_ID="19sA-E-SnbXdmskPOFtRecYi_sQW9lviC"
+FILE_NAME="sample_vid.mp4"
+RES_PATH="${PROJECT_ROOT}/ws_testserver/src/myride_test_server/res"
+
+FILE=${RES_PATH}/${FILE_NAME}
+if [[ -f "$FILE_NAME" ]]; then
+    echo "$FILE_NAME exists. No need to download"
+
+else
+
+    cd ${RES_PATH}
+
+    curl -c ./cookie -s -L "https://drive.google.com/uc?export=download&id=${FILE_ID}" > /dev/null
+    curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm=`awk '/download/ {print $NF}' ./cookie`&id=${FILE_ID}" -o ${FILE_NAME}
+    cd ${PROJECT_ROOT}
+fi
 
 echo "Building Docker image..."
-docker build -t ros-docker-simple ${PROJECT_ROOT}
+docker build -t myride_test_server ${PROJECT_ROOT}
 
-echo "Running catkin_make..."
-${PROJECT_ROOT}/script/run sh -c 'cd /catkin_ws/ && catkin_make'
+echo "Running catkin build"
+${PROJECT_ROOT}/script/run sh -c 'echo $CMAKE_PREFIX_PATH'
