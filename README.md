@@ -4,8 +4,8 @@ A simple template project for [dockerizing](https://www.docker.com/) your [ROS](
 
 ```
 sudo apt-get install docker
-/script/build
-/script/run
+./script/build
+./script/server
 ```
 
 And that's it!
@@ -14,9 +14,13 @@ And that's it!
 _myride_test_server package_
 
 ```
-/script/server #runs the  test server with a roscore backend
+./script/server #runs the  test server with a roscore backend
 ```
-From [ ROS server details](ws_testserver/src/myride_test_server/README.md) 
+Checkk out  ROS server details](ws_testserver/src/myride_test_server/README.md)  for further documentation about hte WebSocket interface
+
+```
+./script/run <yoru command> # to test the container 
+```
 
  
 
