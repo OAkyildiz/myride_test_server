@@ -1,6 +1,6 @@
 # ROS Docker Simple
 
-A simple template project for [dockerizing](https://www.docker.com/) your [ROS](http://www.ros.org/) code. Have your ROS project set up and running in 3 minutes by putting your catkin workspace in `catkin_ws` and running:
+A simple template project for [dockerizing](https://www.docker.com/) your [ROS](http://www.ros.org/) code. Have your ROS project set up and running in 3 minutes by putting your catkin workspace in `ws_testserver` and running:
 
 ```
 sudo apt-get install docker
@@ -10,7 +10,61 @@ sudo apt-get install docker
 
 And that's it!
 
-## FAQ
+# myRide App test server
+_myride_test_server package_
+
+```
+/script/server #runs the  test server with a roscore backend
+```
+From [ ROS server details](ws_testserver/src/myride_test_server/README.md) 
+
+ 
+
+## ROS Nodes
+
+### dummy_node
+Publishes all dummy data messages to the relevant topics and subscriebs to would-be interpreted commands. This is exposed by rosbridge_websocket.
+#### Publishers:
+ * /oscc/speed [std_msgs/Float32]
+ * /oscc/steering [std_msgs/Int16]
+ * /rosout [rosgraph_msgs/Log]
+
+#### Subscribers: 
+ * /command [std_msgs /String]
+
+
+### video_stream_opencv
+The [video_stream_opencv](http://wiki.ros.org/video_stream_opencv) package contains a node to publish a video stream (the protocols that opencv supports are supported, including rtsp, webcams on /dev/video and video files) in ROS image topics, it supports camera info and basic image flipping (horizontal, vertical or both) capabilities, also adjusting publishing rate
+.
+node name: /zed/zed_stream
+The image topics published (along with camera info and parameters) include but not limited to
+ * /zed/image_raw
+ * /zed/image_raw/compressed
+ * /zed/image_raw/compressedDepth
+
+
+
+## Server Nodes
+### video_web_server
+Creates video streams of all available  ROS image transport topics that can be accessed via HTTP.
+More on [video_web_server ROS Wiki page](http://wiki.ros.org/web_video_server)
+#### URLS:
+* Overview of available ROS topics: http://localhost:8080/ 
+* Webpage showing a video stream: http://localhost:8080/stream_viewer?* topic={ROS_TOPIC} 
+* Video stream URL: http://localhost:8080/stream?topic={ROS_TOPIC} 
+* Snapshot of next image: http://localhost:8080/snapshot?topic={ROS_TOPIC}
+
+### rosbridge_websocket
+Launches a WebSocket connection server to send and receiva calls over HTTP.
+[server launch tutorial](http://wiki.ros.org/rosbridge_suite/Tutorials/RunningRosbridge)
+[Roslibjs](http://wiki.ros.org/roslibjs) is a JavaScript library that handles the communication for you
+
+These are for server monitorin purposes, not needed by the App
+ * /client_count [std_msgs/Int32]
+ * /connected_clients [rosbridge_msgs/ConnectedClients]
+
+
+# FAQ
 
 ### How can I use a different version of ROS?
 
@@ -22,11 +76,11 @@ FROM ros:kinetic-ros-base
 
 ### Can I use [my favourite IDE/editor] with this?
 
-Yup! The `catkin_ws` directory is mounted as a volume inside the container, so you can edit your code as usual, and it will be automatically synced with the container.
+Yup! The `ws_testserver` directory is mounted as a volume inside the container, so you can edit your code as usual, and it will be automatically synced with the container.
 
-### Where is my `catkin_ws` workspace mounted inside the container?
+### Where is my `ws_testserver` workspace mounted inside the container?
 
-Inside the container, the `catkin_ws` folder will be mounted at root (`/catkin_ws`). 
+Inside the container, the `ws_testserver` folder will be mounted at root (`/ws_testserver`). 
 
 ### How do I install additional packages / dependencies / tools?
 

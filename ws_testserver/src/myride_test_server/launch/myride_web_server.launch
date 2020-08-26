@@ -1,0 +1,18 @@
+<launch>    
+    <arg name="address" default="$(optenv ROS_HOSTNAME 127.0.0.1)"/>
+    <arg name="port_ws" default="8000"/>
+    <arg name="port_video" default="8080"/>
+
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+        <arg name="port" value="$(arg port_ws)"/>
+        <arg name="address" value="$(arg address)"/>
+    </include>
+
+    <node pkg="web_video_server" type="web_video_server" name="myride_video_server" output="screen">
+        <param name="port" value="$(arg port_video)"/>
+        <param name="address" value="$(arg address)"/>
+    </node>
+
+
+</launch>
+

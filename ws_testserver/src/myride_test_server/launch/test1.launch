@@ -1,0 +1,15 @@
+<launch>
+ <arg name="source" default="$(dirname)/../res/sample_vid.mp4"/>
+ <arg name="address" default="$(optenv ROS_IP 127.0.0.1)"/>
+ <arg name="port_ws" default="8000"/>
+ <arg name="port_video" default="8080"/>
+    <include file="$(dirname)/test_data.launch" >
+        <arg  name="source" default="$(arg source)"/>
+
+    </include>
+    <include file="$(dirname)/myride_web_server.launch" >
+        <arg name="address" value="$(arg address)"/>
+        <arg name="port_ws" value="$(arg port_ws)"/>
+        <arg name="port_video" default="$(arg port_video)"/>
+    </include>
+</launch>

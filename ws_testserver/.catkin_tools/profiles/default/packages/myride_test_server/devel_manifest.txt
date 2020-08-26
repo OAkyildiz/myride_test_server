@@ -1,0 +1,5 @@
+myride_test_server
+/ws_testserver/devel/.private/myride_test_server/cmake.lock /ws_testserver/devel/./cmake.lock
+/ws_testserver/devel/.private/myride_test_server/lib/pkgconfig/myride_test_server.pc /ws_testserver/devel/lib/pkgconfig/myride_test_server.pc
+/ws_testserver/devel/.private/myride_test_server/share/myride_test_server/cmake/myride_test_serverConfig-version.cmake /ws_testserver/devel/share/myride_test_server/cmake/myride_test_serverConfig-version.cmake
+/ws_testserver/devel/.private/myride_test_server/share/myride_test_server/cmake/myride_test_serverConfig.cmake /ws_testserver/devel/share/myride_test_server/cmake/myride_test_serverConfig.cmake
