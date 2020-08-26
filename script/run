@@ -8,7 +8,6 @@ ip="127.17.0.2";
 
 docker run -it \
   --name myride_test_server \
-  --volume ${PROJECT_ROOT}/ws_testserver:/ws_testserver \
   --env ROS_MASTER_URI=http://$ip:11311 \
   --env ROS_HOSTNAME=$ip \
   -p 8080:8080 \

@@ -5,7 +5,7 @@ set -e
 PROJECT_ROOT="$(cd "$(dirname "$0")"; cd ..; pwd)"
 echo "PROJECT ROOT ${PROJECT_ROOT}" 
 
-echo "Getting resource files..."
+echo "Checking resource files..."
 FILE_ID="19sA-E-SnbXdmskPOFtRecYi_sQW9lviC"
 FILE_NAME="sample_vid.mp4"
 RES_PATH="${PROJECT_ROOT}/ws_testserver/src/myride_test_server/res"
@@ -15,13 +15,14 @@ if [[ -f "$FILE_NAME" ]]; then
     echo "$FILE_NAME exists. No need to download"
 
 else
+    echo "Downloading resource files..."
 
     cd ${RES_PATH}
 
     curl -c ./cookie -s -L "https://drive.google.com/uc?export=download&id=${FILE_ID}" > /dev/null
     curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm=`awk '/download/ {print $NF}' ./cookie`&id=${FILE_ID}" -o ${FILE_NAME}
     rm cookie
-    
+
     cd ${PROJECT_ROOT}
 fi
 

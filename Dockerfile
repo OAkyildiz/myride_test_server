@@ -20,6 +20,7 @@ WORKDIR $OVERLAY_WS
 
 RUN . /opt/ros/$DISTRO/setup.sh && catkin build
 
+WORKDIR /
 RUN sed --in-place --expression \
       '$isource "$OVERLAY_WS/devel/setup.bash"' \
       /ros_entrypoint.sh
