@@ -5,7 +5,7 @@ A simple template project for [dockerizing](https://www.docker.com/) your [ROS](
 ```
 sudo apt-get install docker
 ./script/build
-./script/server
+./script/server <container IP>
 ```
 
 And that's it!
